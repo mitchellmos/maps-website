@@ -1,19 +1,15 @@
 {
-  "name": "tribal-wars-maps",
+  "name": "tribalwars-maps",
   "version": "1.0.0",
-  "description": "A simple static website to display Tribal Wars map PNG files for multiple worlds",
-  "main": "src/index.html",
+  "description": "Daily map updates for TribalWars browser game",
   "scripts": {
-    "start": "cd src && python3 -m http.server 8000",
-    "dev": "cd src && python3 -m http.server 8000",
+    "build": "node scripts/build-pages.js && node scripts/generate-map-list.js",
     "generate-maps": "node scripts/generate-map-list.js",
-    "generate-world": "node scripts/generate-map-list.js --world",
-    "generate-summary": "node scripts/generate-map-list.js --summary",
     "add-world": "node scripts/add-world.js",
     "remove-world": "node scripts/remove-world.js",
-    "help": "node scripts/generate-map-list.js --help"
+    "start": "python3 -m http.server 8000"
   },
-  "keywords": ["tribal-wars", "maps", "static-website", "worlds"],
-  "author": "",
+  "keywords": ["tribalwars", "maps", "static", "website"],
+  "author": "Superdog",
   "license": "MIT"
 }

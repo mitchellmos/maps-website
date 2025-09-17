@@ -20,7 +20,7 @@ const MAP_TYPES = [
 ];
 
 // List of active worlds - add new worlds here
-const WORLDS = ['world144', 'world147', 'world148', 'world149'];
+const WORLDS = ['144', '147', '148', '149'];
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {

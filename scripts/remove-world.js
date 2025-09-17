@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { WORLDS } = require('../script../scripts/map-config.js');
+const { WORLDS } = require('./map-config.js');
 
 /**
  * Remove a world from the system
@@ -11,7 +11,7 @@ function removeWorld(worldId) {
     console.log(`Removing world: ${worldId}...`);
     
     // Remove world directory
-    const worldDir = path.join('./maps', worldId);
+    const worldDir = path.join('./maps', `world${worldId}`);
     if (fs.existsSync(worldDir)) {
         fs.rmSync(worldDir, { recursive: true, force: true });
         console.log(`✅ Removed directory: ${worldDir}`);
@@ -20,24 +20,24 @@ function removeWorld(worldId) {
     }
     
     // Remove JSON file
-    const jsonFile = path.join('./maps', `${worldId}.json`);
+    const jsonFile = path.join('./maps', `world${worldId}.json`);
     if (fs.existsSync(jsonFile)) {
         fs.unlinkSync(jsonFile);
         console.log(`✅ Removed JSON file: ${jsonFile}`);
     }
     
     // Remove HTML file
-    const htmlFile = `${worldId}.html`;
+    const htmlFile = `world${worldId}.html`;
     if (fs.existsSync(htmlFile)) {
         fs.unlinkSync(htmlFile);
-        console.log(`✅ Removed HTML file: ${htmlFile}.html`);
+        console.log(`✅ Removed HTML file: ${htmlFile}`);
     }
     
     // Update map-config.js to remove the world
     updateMapConfig(worldId);
     
-    // Update all existing HTML files to remove the world button
-    updateAllHtmlFiles(worldId);
+    // Rebuild all pages to remove the world button
+    rebuildPages();
     
     console.log(`\n✅ World ${worldId} removed successfully!`);
 }
@@ -46,7 +46,7 @@ function removeWorld(worldId) {
  * Update map-config.js to remove the world
  */
 function updateMapConfig(worldId) {
-    const configFile = '../scripts/map-config.js';
+    const configFile = './scripts/map-config.js';
     let content = fs.readFileSync(configFile, 'utf8');
     
     // Remove world from the WORLDS array
@@ -56,66 +56,63 @@ function updateMapConfig(worldId) {
     if (match) {
         const currentWorlds = match[1].split(',').map(w => w.trim().replace(/['"]/g, ''));
         const filteredWorlds = currentWorlds.filter(w => w !== worldId);
-        const newWorldsArray = filteredWorlds.map(w => `'${w}'`).join(', ');
-        content = content.replace(worldsRegex, `const WORLDS = [${newWorldsArray}];`);
-        fs.writeFileSync(configFile, content);
-        console.log(`✅ Updated map-config.js - removed ${worldId}`);
+        
+        if (filteredWorlds.length !== currentWorlds.length) {
+            const newWorldsArray = `const WORLDS = [${filteredWorlds.map(w => `'${w}'`).join(', ')}];`;
+            content = content.replace(worldsRegex, newWorldsArray);
+            
+            fs.writeFileSync(configFile, content);
+            console.log(`✅ Updated map-config.js to remove world ${worldId}`);
+        } else {
+            console.log(`World ${worldId} not found in map-config.js`);
+        }
+    } else {
+        console.error('Could not find WORLDS array in map-config.js');
     }
 }
 
 /**
- * Update all existing HTML files to remove the world button
+ * Rebuild all pages to remove the world button
  */
-function updateAllHtmlFiles(worldId) {
-    const worldNumber = worldId.replace('world', '');
-    const files = ['index.html', 'world144.html', 'world147.html', 'world148.html', 'world149.html'];
-    
-    files.forEach(file => {
-        if (fs.existsSync(file)) {
-            let content = fs.readFileSync(file, 'utf8');
-            
-            // Remove the world button
-            const buttonRegex = new RegExp(`\\s*<a href="${worldId}\\.html" class="world-btn[^"]*">World ${worldNumber}</a>\\s*`, 'g');
-            content = content.replace(buttonRegex, '');
-            
-            fs.writeFileSync(file, content);
-            console.log(`✅ Updated: ${file}`);
-        }
-    });
+function rebuildPages() {
+    try {
+        const { execSync } = require('child_process');
+        execSync('node scripts/build-pages.js', { stdio: 'inherit' });
+        console.log('✅ Rebuilt all pages');
+    } catch (error) {
+        console.error('Error rebuilding pages:', error.message);
+    }
 }
 
-// Command line interface
+/**
+ * Main function
+ */
 function main() {
-    const args = process.argv.slice(2);
+    const worldId = process.argv[2];
     
-    if (args.length === 0) {
-        console.log('Usage: node remove-world.js <world-id>');
-        console.log('Example: node remove-world.js world150');
-        console.log('\nThis will:');
-        console.log('1. Remove maps/world150/ directory');
-        console.log('2. Remove world150.json file');
-        console.log('3. Remove world150.html file');
-        console.log('4. Update map-config.js');
-        console.log('5. Update all existing HTML files');
-        return;
+    if (!worldId) {
+        console.log('Usage: node scripts/remove-world.js <worldId>');
+        console.log('Example: node scripts/remove-world.js 150');
+        process.exit(1);
     }
     
-    const worldId = args[0];
-    
-    if (!worldId.startsWith('world')) {
-        console.error('World ID must start with "world" (e.g., world150)');
-        return;
+    // Validate world ID (should be numeric)
+    if (!/^\d+$/.test(worldId)) {
+        console.error('Error: World ID must be numeric (e.g., 150)');
+        process.exit(1);
     }
     
+    // Check if world exists
     if (!WORLDS.includes(worldId)) {
-        console.log(`World ${worldId} doesn't exist in the system!`);
-        return;
+        console.error(`Error: World ${worldId} does not exist in map-config.js`);
+        console.log(`Available worlds: ${WORLDS.join(', ')}`);
+        process.exit(1);
     }
     
     removeWorld(worldId);
 }
 
-// Run if called directly
+// Run the script
 if (require.main === module) {
     main();
 }

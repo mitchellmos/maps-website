@@ -1,30 +1,35 @@
-# Tribal Wars Maps Website
+# TribalWars Maps Website
 
-A simple static website to display daily updated Tribal Wars map PNG files for multiple worlds (144, 147, 148, 149).
+A simple static website to display daily updated TribalWars map PNG files for multiple worlds (144, 147, 148, 149).
 
 ## Features
 
-- **Multi-World Support**: Separate pages for each Tribal Wars world
+- **Multi-World Support**: Separate pages for each TribalWars world
 - **Clean Navigation**: Easy switching between worlds
 - **Modern Design**: Responsive grid layout with beautiful styling
 - **Modal Image Viewer**: Click any map to view full-size
 - **Automatic Timestamps**: Shows when each map was last updated
 - **Mobile-Friendly**: Works perfectly on all devices
+- **Build-Time Generation**: Consistent templating system for all pages
 
 ## File Structure
 
 ```
 maps-website/
-├── src/                    # Website source files
-│   ├── index.html          # Homepage with world selection
-│   ├── world144.html       # World 144 maps page
-│   ├── world147.html       # World 147 maps page
-│   ├── world148.html       # World 148 maps page
-│   ├── world149.html       # World 149 maps page
-│   ├── styles.css          # CSS styling
-│   └── script.js           # JavaScript functionality
+├── index.html              # Homepage with world selection
+├── world144.html           # World 144 maps page
+├── world147.html           # World 147 maps page
+├── world148.html           # World 148 maps page
+├── world149.html           # World 149 maps page
+├── styles.css              # CSS styling
+├── script.js               # JavaScript functionality
+├── templates/              # HTML templates
+│   ├── header.html         # Common header template
+│   ├── navigation.html     # Navigation template
+│   └── footer.html         # Footer template
 ├── scripts/                # Build/management tools
 │   ├── map-config.js       # Map types and world configuration
+│   ├── build-pages.js      # Page generation script
 │   ├── generate-map-list.js # Map list generator script
 │   ├── add-world.js        # Add new world script
 │   └── remove-world.js     # Remove world script
@@ -39,158 +44,96 @@ maps-website/
 │   ├── world149.json      # World 149 map metadata
 │   └── worlds-summary.json # Summary of all worlds
 ├── package.json            # Project configuration
-├── README.md              # This file
-├── LICENSE                # MIT License
-└── .gitignore            # Git ignore rules
+├── .gitignore             # Git ignore rules
+├── LICENSE                 # MIT License
+└── README.md              # This file
 ```
 
-## Setup
+## Quick Start
 
-1. **Place your PNG files** in the appropriate world directories:
-   - `maps/world144/` for World 144 maps
-   - `maps/world147/` for World 147 maps
-   - `maps/world148/` for World 148 maps
-   - `maps/world149/` for World 149 maps
-
-2. **Generate map lists** for all worlds:
+1. **Clone the repository**
    ```bash
-   npm run generate-maps
+   git clone <repository-url>
+   cd maps-website
    ```
 
-3. **Serve the website**:
+2. **Start local development server**
    ```bash
-   npm start
+   python3 -m http.server 8000
    ```
-   Then open `http://localhost:8000` in your browser.
 
-## Available Commands
+3. **Open in browser**
+   ```
+   http://localhost:8000
+   ```
 
-### Map Management
-```bash
-# Generate map lists for all worlds
-npm run generate-maps
+## Development
 
-# Generate for a specific world
-npm run generate-world world144
-
-# Generate summary only
-npm run generate-summary
-```
-
-### World Management
-```bash
-# Add a new world
-npm run add-world world150
-
-# Remove a world
-npm run remove-world world150
-```
-
-### Development
-```bash
-# Start local server
-npm start
-
-# Show help
-npm run help
-```
-
-## Adding Maps
-
-### For All Worlds
-```bash
-# Generate map lists for all worlds
-npm run generate-maps
-```
-
-### For a Specific World
-```bash
-# Generate map list for World 144 only
-npm run generate-world world144
-```
-
-## Integration with Daily Updates
-
-Your separate job that generates maps daily can easily integrate with this website:
-
-1. **Generate maps** → Save PNG files to appropriate world directories
-2. **Update catalogs** → Run `npm run generate-maps` to update all map lists
-3. **Deploy** → Upload the `src/` folder to your web server
-
-The website will automatically:
-- Display the newest maps first for each world
-- Show timestamps for when each map was last updated
-- Provide easy navigation between worlds
-
-## Navigation
-
-- **Homepage** (`src/index.html`): World selection page
-- **World Pages**: Each world has its own dedicated page showing only that world's maps
-- **Active World**: The current world is highlighted in the navigation
-- **Responsive Design**: Navigation adapts to mobile screens
-
-## Customization
-
-### Adding New Worlds
-```bash
-npm run add-world world150
-```
-This automatically:
-1. Creates `maps/world150/` directory
-2. Updates `scripts/map-config.js`
-3. Creates `src/world150.html`
-4. Updates all existing HTML files
-
-### Adding New Map Types
-Edit `scripts/map-config.js` to add new map types. All worlds will automatically include the new map type.
-
-### Styling
-- **Colors**: Modify the gradient in `src/styles.css`
-- **Layout**: Adjust grid columns in the `.maps-grid` CSS rule
-- **Navigation**: Customize the `.world-btn` styles
-
-## Serving the Website
-
-### Local Development
-```bash
-# Using npm (recommended)
-npm start
-
-# Using Python directly
-cd src && python3 -m http.server 8000
-
-# Using Node.js (if you have http-server installed)
-cd src && npx http-server
-
-# Using PHP
-cd src && php -S localhost:8000
-```
-
-### Production Deployment
-- Upload the `src/` folder to your web server
-- Ensure the `maps/` directory is accessible
-- Configure your web server to serve static files
-
-## Browser Support
-
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- Mobile browsers
-- Responsive design works on all screen sizes
-
-## Example Usage
+### Adding a New World
 
 ```bash
-# Add maps to World 144
-cp tribal-wars-map-144.png maps/world144/
+# Add world 150
+node scripts/add-world.js 150
 
-# Add maps to World 147
-cp tribal-wars-map-147.png maps/world147/
+# Add PNG files to maps/world150/
+# Generate map list
+node scripts/generate-map-list.js
 
-# Generate all map lists
-npm run generate-maps
-
-# Start the website
-npm start
+# Rebuild pages
+node scripts/build-pages.js
 ```
 
-The website will now show separate pages for each world, with easy navigation between them!
+### Removing a World
+
+```bash
+# Remove world 150
+node scripts/remove-world.js 150
+```
+
+### Updating Maps
+
+1. Add new PNG files to the appropriate `maps/worldXXX/` directory
+2. Run `node scripts/generate-map-list.js` to update JSON metadata
+3. Maps will automatically appear on the website
+
+### Building Pages
+
+```bash
+# Generate all HTML pages from templates
+node scripts/build-pages.js
+```
+
+## Map Types
+
+Each world supports these standard map types:
+
+- **Barbarians** - Barbarian village locations
+- **Top Dominance Tribes** - Tribes ranked by dominance
+- **Top Loss Tribes** - Tribes ranked by losses
+- **Top Conquer Tribes** - Tribes ranked by conquests
+- **Top ODD Tribes** - Tribes ranked by ODD (Offensive Defensive Difference)
+- **Top ODA Tribes** - Tribes ranked by ODA (Offensive Defensive Average)
+- **Top OD Tribes** - Tribes ranked by OD (Offensive Defensive)
+- **Top Tribes** - General tribe rankings
+- **Top Dominance Players** - Players ranked by dominance
+- **Top Loss Players** - Players ranked by losses
+- **Top Conquer Players** - Players ranked by conquests
+- **Top ODD Players** - Players ranked by ODD
+- **Top ODA Players** - Players ranked by ODA
+- **Top OD Players** - Players ranked by OD
+- **Top Players** - General player rankings
+
+## Deployment
+
+This is a static website that can be deployed to any static hosting service:
+
+- **Cloudflare Pages** (recommended)
+- **Netlify**
+- **GitHub Pages**
+- **Vercel**
+
+Simply push your code and the hosting service will serve the static files.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
