@@ -2,21 +2,19 @@
 // This defines the standard map types that exist for every world
 
 const MAP_TYPES = [
-    { id: 'barbarians', name: 'Barbarians', filename: 'barbarians.png' },
-    { id: 'topDominanceTribes', name: 'Top Dominance Tribes', filename: 'topDominanceTribes.png' },
-    { id: 'topLossTribes', name: 'Top Loss Tribes', filename: 'topLossTribes.png' },
-    { id: 'topConqTribes', name: 'Top Conquer Tribes', filename: 'topConqTribes.png' },
-    { id: 'topODDTribes', name: 'Top ODD Tribes', filename: 'topODDTribes.png' },
-    { id: 'topODATribes', name: 'Top ODA Tribes', filename: 'topODATribes.png' },
-    { id: 'topODTribes', name: 'Top OD Tribes', filename: 'topODTribes.png' },
+    { id: 'topPlayers', name: 'Top Players', filename: 'topPlayers.png' },
     { id: 'topTribes', name: 'Top Tribes', filename: 'topTribes.png' },
-    { id: 'topDominancePlayers', name: 'Top Dominance Players', filename: 'topDominancePlayers.png' },
-    { id: 'topLossPlayers', name: 'Top Loss Players', filename: 'topLossPlayers.png' },
-    { id: 'topConqPlayers', name: 'Top Conquer Players', filename: 'topConqPlayers.png' },
-    { id: 'topODDPlayers', name: 'Top ODD Players', filename: 'topODDPlayers.png' },
-    { id: 'topODAPlayers', name: 'Top ODA Players', filename: 'topODAPlayers.png' },
+    { id: 'topConqTribes', name: 'Tribe Conquers', filename: 'topConqTribes.png' },
+    { id: 'topODTribes', name: 'Top OD Tribes', filename: 'topODTribes.png' },
+    { id: 'topODATribes', name: 'Top ODA Tribes', filename: 'topODATribes.png' },
+    { id: 'topODDTribes', name: 'Top ODD Tribes', filename: 'topODDTribes.png' },
+    { id: 'topConqPlayers', name: 'Player Conquers', filename: 'topConqPlayers.png' },
     { id: 'topODPlayers', name: 'Top OD Players', filename: 'topODPlayers.png' },
-    { id: 'topPlayers', name: 'Top Players', filename: 'topPlayers.png' }
+    { id: 'topODAPlayers', name: 'Top ODA Players', filename: 'topODAPlayers.png' },
+    { id: 'topODDPlayers', name: 'Top ODD Players', filename: 'topODDPlayers.png' },
+    { id: 'barbarians', name: 'Barbarians', filename: 'barbarians.png' },
+    { id: 'topDominancePlayers', name: 'Player Dominance', filename: 'topDominancePlayers.png' },
+    { id: 'topDominanceTribes', name: 'Tribe Dominance', filename: 'topDominanceTribes.png' },
 ];
 
 // List of active worlds - add new worlds here
