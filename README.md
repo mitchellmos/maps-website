@@ -1,6 +1,6 @@
 # TribalWars Maps Website
 
-A simple static website to display daily updated TribalWars map PNG files for multiple worlds (144, 147, 148, 149).
+A simple static website to display daily updated TribalWars map PNG files for multiple worlds.
 
 ## Features
 
@@ -17,10 +17,7 @@ A simple static website to display daily updated TribalWars map PNG files for mu
 ```
 maps-website/
 ├── index.html              # Homepage with world selection
-├── world144.html           # World 144 maps page
-├── world147.html           # World 147 maps page
-├── world148.html           # World 148 maps page
-├── world149.html           # World 149 maps page
+├── worldXXX.html           # Individual world maps pages
 ├── styles.css              # CSS styling
 ├── script.js               # JavaScript functionality
 ├── templates/              # HTML templates
@@ -34,14 +31,8 @@ maps-website/
 │   ├── add-world.js        # Add new world script
 │   └── remove-world.js     # Remove world script
 ├── maps/                   # Maps directory
-│   ├── world144/          # World 144 PNG files
-│   ├── world147/          # World 147 PNG files
-│   ├── world148/          # World 148 PNG files
-│   ├── world149/          # World 149 PNG files
-│   ├── world144.json      # World 144 map metadata
-│   ├── world147.json      # World 147 map metadata
-│   ├── world148.json      # World 148 map metadata
-│   ├── world149.json      # World 149 map metadata
+│   ├── worldXXX/          # World-specific PNG files
+│   ├── worldXXX.json      # World-specific map metadata
 │   └── worlds-summary.json # Summary of all worlds
 ├── package.json            # Project configuration
 ├── .gitignore             # Git ignore rules
@@ -72,10 +63,10 @@ maps-website/
 ### Adding a New World
 
 ```bash
-# Add world 150
-node scripts/add-world.js 150
+# Add a new world (replace XXX with world number)
+node scripts/add-world.js XXX
 
-# Add PNG files to maps/world150/
+# Add PNG files to maps/worldXXX/
 # Generate map list
 node scripts/generate-map-list.js
 
@@ -86,8 +77,8 @@ node scripts/build-pages.js
 ### Removing a World
 
 ```bash
-# Remove world 150
-node scripts/remove-world.js 150
+# Remove a world (replace XXX with world number)
+node scripts/remove-world.js XXX
 ```
 
 ### Updating Maps
@@ -128,9 +119,7 @@ Each world supports these standard map types:
 This is a static website that can be deployed to any static hosting service:
 
 - **Cloudflare Pages** (recommended)
-- **Netlify**
 - **GitHub Pages**
-- **Vercel**
 
 Simply push your code and the hosting service will serve the static files.
 
