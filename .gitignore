@@ -1,0 +1,10 @@
+# Map files - generated daily
+maps/*/*.png
+maps/*/*.jpg
+maps/*/*.jpeg
+
+# Generated JSON files
+maps/*.json
+
+# OS files
+.DS_Store
