@@ -37,13 +37,20 @@ function generateNavigationButtons() {
 
 // Build index page
 function buildIndexPage() {
-    const indexTemplate = fs.readFileSync('templates/index-template.html', 'utf8');
+    const indexContent = `<main>
+    <div class="container">
+        <div class="welcome-section">
+            <h2>Welcome to TribalWars Maps</h2>
+            <p>Select a world above to view the latest map data.</p>
+        </div>
+    </div>
+</main>`;
     
     let html = baseTemplate
         .replace('{{TITLE}}', 'TribalWars Maps - Daily Map Updates')
         .replace('{{HEADER}}', headerTemplate)
         .replace('{{NAVIGATION}}', navTemplate.replace('{{WORLD_BUTTONS}}', generateNavigationButtons()))
-        .replace('{{CONTENT}}', indexTemplate)
+        .replace('{{CONTENT}}', indexContent)
         .replace('{{FOOTER}}', footerTemplate)
         .replace('{{SCRIPTS}}', '');
 
@@ -53,14 +60,23 @@ function buildIndexPage() {
 
 // Build world pages
 function buildWorldPages() {
-    const worldTemplate = fs.readFileSync('templates/world-template.html', 'utf8');
+    const worldContent = `<main>
+    <div class="container">
+        <div class="map-grid" id="mapContainer">
+            <div class="loading">
+                <p>Loading maps...</p>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="script.js"></script>`;
     
     WORLDS.forEach(world => {
         let html = baseTemplate
             .replace('{{TITLE}}', `World ${world} Maps - TribalWars Maps`)
             .replace('{{HEADER}}', headerTemplate)
             .replace('{{NAVIGATION}}', navTemplate.replace('{{WORLD_BUTTONS}}', generateNavigationButtons()))
-            .replace('{{CONTENT}}', worldTemplate)
+            .replace('{{CONTENT}}', worldContent)
             .replace('{{FOOTER}}', footerTemplate)
             .replace('{{SCRIPTS}}', '');
 
