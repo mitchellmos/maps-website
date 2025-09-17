@@ -97,7 +97,7 @@ function displayMaps(maps) {
             <img src="${map.url}" alt="${map.name}" onclick="openModal('${map.url}', '${map.name}')">
             <div class="map-info">
                 <h3>${map.name}</h3>
-                <p>Updated: ${map.date}</p>
+                
             </div>
         </div>
     `).join('');
@@ -127,7 +127,7 @@ function createModal() {
     const modalHTML = `
         <div id="imageModal" class="modal" onclick="closeModal()">
             <div class="modal-content" onclick="event.stopPropagation()">
-                <div class="modal-header">
+                <div class="modal-header" style="display: none;">
                     <h2 id="modalTitle"></h2>
                     <span class="close" onclick="closeModal()">&times;</span>
                 </div>

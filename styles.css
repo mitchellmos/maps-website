@@ -181,12 +181,15 @@ main {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.8);
+    overflow-y: auto;
+    padding: 20px 0;
     backdrop-filter: blur(5px);
 }
 
 .modal-content {
     position: relative;
-    margin: 2% auto;
+    margin: 0 auto;
+    margin-bottom: 20px;
     padding: 0;
     width: 90%;
     max-width: 1000px;

@@ -32,7 +32,7 @@ function generateWorldMapList(world) {
                     name: mapType.name,
                     filename: mapType.filename,
                     url: `maps/world${world}/${mapType.filename}`,
-                    date: stats.mtime.toISOString(),
+                    
                     size: stats.size,
                     world: world,
                     type: mapType.id
