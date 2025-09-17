@@ -1,0 +1,18 @@
+{
+  "totalWorlds": 4,
+  "worlds": {
+    "144": {
+      "mapCount": 15
+    },
+    "147": {
+      "mapCount": 0
+    },
+    "148": {
+      "mapCount": 15
+    },
+    "149": {
+      "mapCount": 15
+    }
+  },
+  "lastUpdated": "2025-09-17T17:49:14.338Z"
+}
