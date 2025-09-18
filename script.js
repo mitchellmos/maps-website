@@ -160,8 +160,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const path = window.location.pathname;
     const filename = path.split('/').pop();
     
-    if (filename.endsWith('.html') && filename !== 'index.html') {
-        const worldId = filename.replace('.html', '');
+    // Handle both /en146.html and /en146 or /world146 URLs
+    if ((filename.endsWith('.html') && filename !== 'index.html') || 
+        (filename.startsWith('en') && /^en\d+$/.test(filename)) ||
+        (filename.startsWith('world') && /^world\d+$/.test(filename))) {
+        
+        let worldId = filename.replace('.html', '');
+        
+        // Convert world146 to en146 if needed
+        if (worldId.startsWith('world')) {
+            worldId = worldId.replace('world', 'en');
+        }
+        
         window.currentWorld = worldId;
         loadMaps();
     }
