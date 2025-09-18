@@ -80,6 +80,14 @@
     "type": "topODDPlayers"
   },
   {
+    "name": "Top ODS Players",
+    "filename": "topODSPlayers.png",
+    "url": "maps/en148/topODSPlayers.png",
+    "size": 115484,
+    "world": "en148",
+    "type": "topODSPlayers"
+  },
+  {
     "name": "Barbarians",
     "filename": "barbarians.png",
     "url": "maps/en148/barbarians.png",

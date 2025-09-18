@@ -12,6 +12,7 @@ const MAP_TYPES = [
     { id: 'topODPlayers', name: 'Top OD Players', filename: 'topODPlayers.png' },
     { id: 'topODAPlayers', name: 'Top ODA Players', filename: 'topODAPlayers.png' },
     { id: 'topODDPlayers', name: 'Top ODD Players', filename: 'topODDPlayers.png' },
+    { id: 'topODSPlayers', name: 'Top ODS Players', filename: 'topODSPlayers.png' },
     { id: 'barbarians', name: 'Barbarians', filename: 'barbarians.png' },
     { id: 'topDominancePlayers', name: 'Player Dominance', filename: 'topDominancePlayers.png' },
     { id: 'topDominanceTribes', name: 'Tribe Dominance', filename: 'topDominanceTribes.png' },
