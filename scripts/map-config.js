@@ -17,10 +17,19 @@ const MAP_TYPES = [
     { id: 'topDominanceTribes', name: 'Tribe Dominance', filename: 'topDominanceTribes.png' },
 ];
 
-// List of active worlds - add new worlds here
-const WORLDS = ['144', '146', '147', '148', '149'];
+// World mapping: internal name -> display name
+const WORLD_MAPPING = {
+    'en144': 'World 144',
+    'en146': 'World 146', 
+    'en147': 'World 147',
+    'en148': 'World 148',
+    'en149': 'World 149'
+};
+
+// List of active worlds (internal names) - add new worlds here
+const WORLDS = ['en144', 'en146', 'en147', 'en148', 'en149'];
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { MAP_TYPES, WORLDS };
+    module.exports = { MAP_TYPES, WORLDS, WORLD_MAPPING };
 }

@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { MAP_TYPES, WORLDS } = require('./map-config.js');
+const { MAP_TYPES, WORLDS, WORLD_MAPPING } = require('./map-config.js');
 
 // Configuration
 const MAPS_BASE_DIR = './maps';
@@ -12,12 +12,12 @@ const SUPPORTED_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
  * Generate map list for a specific world using the standard map types
  */
 function generateWorldMapList(world) {
-    const worldDir = path.join(MAPS_BASE_DIR, `world${world}`);
+    const worldDir = path.join(MAPS_BASE_DIR, world);
     
     try {
         // Check if world directory exists
         if (!fs.existsSync(worldDir)) {
-            console.log(`World directory world${world} does not exist. Creating it...`);
+            console.log(`World directory ${world} does not exist. Creating it...`);
             fs.mkdirSync(worldDir, { recursive: true });
             return;
         }
@@ -31,7 +31,7 @@ function generateWorldMapList(world) {
                 return {
                     name: mapType.name,
                     filename: mapType.filename,
-                    url: `maps/world${world}/${mapType.filename}`,
+                    url: `maps/${world}/${mapType.filename}`,
                     
                     size: stats.size,
                     world: world,
@@ -44,17 +44,17 @@ function generateWorldMapList(world) {
         }).filter(map => map !== null); // Remove null entries
 
         if (maps.length === 0) {
-            console.log(`No map files found in world${world} directory.`);
+            console.log(`No map files found in ${world} directory.`);
             return;
         }
 
         // Write the map list to JSON file
-        const outputFile = path.join(MAPS_BASE_DIR, `world${world}.json`);
+        const outputFile = path.join(MAPS_BASE_DIR, `${world}.json`);
         fs.writeFileSync(outputFile, JSON.stringify(maps, null, 2));
-        console.log(`Generated map list for world${world}: ${maps.length} maps`);
+        console.log(`Generated map list for ${world}: ${maps.length} maps`);
 
     } catch (error) {
-        console.error(`Error processing world${world}:`, error.message);
+        console.error(`Error processing ${world}:`, error.message);
     }
 }
 
@@ -69,7 +69,7 @@ function generateWorldsSummary() {
     };
 
     WORLDS.forEach(world => {
-        const worldFile = path.join(MAPS_BASE_DIR, `world${world}.json`);
+        const worldFile = path.join(MAPS_BASE_DIR, `${world}.json`);
         
         if (fs.existsSync(worldFile)) {
             try {
@@ -118,7 +118,7 @@ function main() {
     // Display summary
     console.log('World Summary:');
     WORLDS.forEach(world => {
-        const worldFile = path.join(MAPS_BASE_DIR, `world${world}.json`);
+        const worldFile = path.join(MAPS_BASE_DIR, `${world}.json`);
         if (fs.existsSync(worldFile)) {
             try {
                 const maps = JSON.parse(fs.readFileSync(worldFile, 'utf8'));

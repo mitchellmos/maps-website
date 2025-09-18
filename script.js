@@ -39,7 +39,7 @@ async function loadMaps(worldId = null) {
 // Get list of available maps for a specific world
 async function getMapsList(world) {
     try {
-        const response = await fetch(`maps/world${world}.json`);
+        const response = await fetch(`maps/${world}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -160,9 +160,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const path = window.location.pathname;
     const filename = path.split('/').pop();
     
-    if (filename.startsWith('world')) {
-        const worldNumber = filename.replace('world', '').replace('.html', '');
-        window.currentWorld = worldNumber;
+    if (filename.endsWith('.html') && filename !== 'index.html') {
+        const worldId = filename.replace('.html', '');
+        window.currentWorld = worldId;
         loadMaps();
     }
 });

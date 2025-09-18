@@ -4,6 +4,7 @@ const path = require('path');
 // Load world configuration
 const mapConfig = require('./map-config.js');
 const WORLDS = mapConfig.WORLDS;
+const WORLD_MAPPING = mapConfig.WORLD_MAPPING;
 
 // Read template files
 const headerTemplate = fs.readFileSync('templates/header.html', 'utf8');
@@ -31,7 +32,7 @@ const baseTemplate = `<!DOCTYPE html>
 // Generate navigation buttons dynamically
 function generateNavigationButtons() {
     return WORLDS.map(world => 
-        `<a href="world${world}.html" class="world-btn">World ${world}</a>`
+        `<a href="${world}.html" class="world-btn">${WORLD_MAPPING[world]}</a>`
     ).join('\n            ');
 }
 
@@ -73,15 +74,15 @@ function buildWorldPages() {
     
     WORLDS.forEach(world => {
         let html = baseTemplate
-            .replace('{{TITLE}}', `World ${world} Maps - TribalWars Maps`)
+            .replace('{{TITLE}}', `${WORLD_MAPPING[world]} Maps - TribalWars Maps`)
             .replace('{{HEADER}}', headerTemplate)
             .replace('{{NAVIGATION}}', navTemplate.replace('{{WORLD_BUTTONS}}', generateNavigationButtons()))
             .replace('{{CONTENT}}', worldContent)
             .replace('{{FOOTER}}', footerTemplate)
             .replace('{{SCRIPTS}}', '');
 
-        fs.writeFileSync(`world${world}.html`, html);
-        console.log(`Generated: world${world}.html`);
+        fs.writeFileSync(`${world}.html`, html);
+        console.log(`Generated: ${world}.html`);
     });
 }
 

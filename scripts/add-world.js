@@ -2,13 +2,13 @@
 
 const fs = require('fs');
 const path = require('path');
-const { WORLDS } = require('./map-config.js');
+const { WORLDS, WORLD_MAPPING } = require('./map-config.js');
 
 /**
  * Add a new world to the system
  */
 function addWorld(worldId) {
-    const worldDir = path.join('./maps', `world${worldId}`);
+    const worldDir = path.join('./maps', worldId);
     
     // Create world directory
     if (!fs.existsSync(worldDir)) {
@@ -38,21 +38,37 @@ function updateMapConfig(worldId) {
     const configFile = './scripts/map-config.js';
     let content = fs.readFileSync(configFile, 'utf8');
     
+    // Extract numeric part for display name
+    const numericId = worldId.replace('en', '');
+    const displayName = `World ${numericId}`;
+    
     // Add new world to the WORLDS array
     const worldsRegex = /const WORLDS = \[(.*?)\];/s;
-    const match = content.match(worldsRegex);
+    const worldsMatch = content.match(worldsRegex);
     
-    if (match) {
-        const currentWorlds = match[1].split(',').map(w => w.trim().replace(/['"]/g, ''));
+    if (worldsMatch) {
+        const currentWorlds = worldsMatch[1].split(',').map(w => w.trim().replace(/['"]/g, ''));
         if (!currentWorlds.includes(worldId)) {
             currentWorlds.push(worldId);
-            currentWorlds.sort((a, b) => parseInt(a) - parseInt(b)); // Sort numerically
+            currentWorlds.sort((a, b) => parseInt(a.replace('en', '')) - parseInt(b.replace('en', ''))); // Sort numerically
             
             const newWorldsArray = `const WORLDS = [${currentWorlds.map(w => `'${w}'`).join(', ')}];`;
             content = content.replace(worldsRegex, newWorldsArray);
             
+            // Add to WORLD_MAPPING
+            const mappingRegex = /const WORLD_MAPPING = \{(.*?)\};/s;
+            const mappingMatch = content.match(mappingRegex);
+            
+            if (mappingMatch) {
+                const mappingContent = mappingMatch[1];
+                const newMappingEntry = `    '${worldId}': '${displayName}'`;
+                const newMappingContent = mappingContent + ',\n' + newMappingEntry;
+                const newMappingArray = `const WORLD_MAPPING = {\n${newMappingContent}\n};`;
+                content = content.replace(mappingRegex, newMappingArray);
+            }
+            
             fs.writeFileSync(configFile, content);
-            console.log(`✅ Updated map-config.js with world ${worldId}`);
+            console.log(`✅ Updated map-config.js with world ${worldId} (${displayName})`);
         } else {
             console.log(`World ${worldId} already exists in map-config.js`);
         }
@@ -92,7 +108,9 @@ function main() {
         process.exit(1);
     }
     
-    addWorld(worldId);
+    // Convert numeric world ID to internal naming convention
+    const internalWorldId = `en${worldId}`;
+    addWorld(internalWorldId);
 }
 
 // Run the script
