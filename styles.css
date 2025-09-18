@@ -53,6 +53,18 @@ header h1 a:hover {
     font-style: italic;
 }
 
+/* Subtle contact link styling */
+.contact-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.contact-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
 header p {
     font-size: 1.1rem;
     opacity: 0.9;
