@@ -1,7 +1,7 @@
 {
   "name": "tribalwars-maps",
   "version": "1.0.0",
-  "description": "Daily map updates for TribalWars browser game",
+  "description": "Daily map updates for the TribalWars browser game",
   "scripts": {
     "build": "node scripts/build-pages.js && node scripts/generate-map-list.js",
     "generate-maps": "node scripts/generate-map-list.js",
