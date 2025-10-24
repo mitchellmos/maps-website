@@ -20,15 +20,17 @@ const MAP_TYPES = [
 
 // World mapping: internal name -> display name
 const WORLD_MAPPING = {
-    'en144': 'World 144',
+
+
     'en146': 'World 146', 
     'en147': 'World 147',
     'en148': 'World 148',
-    'en149': 'World 149'
+    'en149': 'World 149',
+    'en150': 'World 150'
 };
 
 // List of active worlds (internal names) - add new worlds here
-const WORLDS = ['en144', 'en146', 'en147', 'en148', 'en149'];
+const WORLDS = ['en146', 'en147', 'en148', 'en149', 'en150'];
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {

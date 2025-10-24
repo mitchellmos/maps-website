@@ -1,9 +1,6 @@
 {
   "totalWorlds": 5,
   "worlds": {
-    "en144": {
-      "mapCount": 13
-    },
     "en146": {
       "mapCount": 14
     },
@@ -15,7 +12,10 @@
     },
     "en149": {
       "mapCount": 14
+    },
+    "en150": {
+      "mapCount": 14
     }
   },
-  "lastUpdated": "2025-09-18T12:13:14.069Z"
+  "lastUpdated": "2025-10-24T22:25:11.450Z"
 }
