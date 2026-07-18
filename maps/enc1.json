@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Top Players",
+    "filename": "topPlayers.png",
+    "url": "maps/enc1/topPlayers.png",
+    "size": 108460,
+    "world": "enc1",
+    "type": "topPlayers"
+  },
+  {
+    "name": "Top Tribes",
+    "filename": "topTribes.png",
+    "url": "maps/enc1/topTribes.png",
+    "size": 129446,
+    "world": "enc1",
+    "type": "topTribes"
+  },
+  {
+    "name": "Tribe Conquers",
+    "filename": "topConqTribes.png",
+    "url": "maps/enc1/topConqTribes.png",
+    "size": 177170,
+    "world": "enc1",
+    "type": "topConqTribes"
+  },
+  {
+    "name": "Top OD Tribes",
+    "filename": "topODTribes.png",
+    "url": "maps/enc1/topODTribes.png",
+    "size": 127651,
+    "world": "enc1",
+    "type": "topODTribes"
+  },
+  {
+    "name": "Top ODA Tribes",
+    "filename": "topODATribes.png",
+    "url": "maps/enc1/topODATribes.png",
+    "size": 129092,
+    "world": "enc1",
+    "type": "topODATribes"
+  },
+  {
+    "name": "Top ODD Tribes",
+    "filename": "topODDTribes.png",
+    "url": "maps/enc1/topODDTribes.png",
+    "size": 123330,
+    "world": "enc1",
+    "type": "topODDTribes"
+  },
+  {
+    "name": "Player Conquers",
+    "filename": "topConqPlayers.png",
+    "url": "maps/enc1/topConqPlayers.png",
+    "size": 114092,
+    "world": "enc1",
+    "type": "topConqPlayers"
+  },
+  {
+    "name": "Top OD Players",
+    "filename": "topODPlayers.png",
+    "url": "maps/enc1/topODPlayers.png",
+    "size": 101293,
+    "world": "enc1",
+    "type": "topODPlayers"
+  },
+  {
+    "name": "Top ODA Players",
+    "filename": "topODAPlayers.png",
+    "url": "maps/enc1/topODAPlayers.png",
+    "size": 108252,
+    "world": "enc1",
+    "type": "topODAPlayers"
+  },
+  {
+    "name": "Top ODD Players",
+    "filename": "topODDPlayers.png",
+    "url": "maps/enc1/topODDPlayers.png",
+    "size": 96752,
+    "world": "enc1",
+    "type": "topODDPlayers"
+  },
+  {
+    "name": "Top ODS Players",
+    "filename": "topODSPlayers.png",
+    "url": "maps/enc1/topODSPlayers.png",
+    "size": 103362,
+    "world": "enc1",
+    "type": "topODSPlayers"
+  },
+  {
+    "name": "Barbarians",
+    "filename": "barbarians.png",
+    "url": "maps/enc1/barbarians.png",
+    "size": 66704,
+    "world": "enc1",
+    "type": "barbarians"
+  },
+  {
+    "name": "Player Dominance",
+    "filename": "topDominancePlayers.png",
+    "url": "maps/enc1/topDominancePlayers.png",
+    "size": 58790,
+    "world": "enc1",
+    "type": "topDominancePlayers"
+  },
+  {
+    "name": "Tribe Dominance",
+    "filename": "topDominanceTribes.png",
+    "url": "maps/enc1/topDominanceTribes.png",
+    "size": 83111,
+    "world": "enc1",
+    "type": "topDominanceTribes"
+  }
+]

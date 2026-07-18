@@ -2,11 +2,12 @@
   "name": "tribalwars-maps",
   "version": "1.0.0",
   "description": "Daily map updates for the TribalWars browser game",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "node scripts/build-pages.js && node scripts/generate-map-list.js",
-    "generate-maps": "node scripts/generate-map-list.js",
-    "add-world": "node scripts/add-world.js",
-    "remove-world": "node scripts/remove-world.js",
+    "build": "node scripts/build.js",
+    "test": "node --test",
     "start": "python3 -m http.server 8000"
   },
   "keywords": ["tribalwars", "maps", "static", "website"],
