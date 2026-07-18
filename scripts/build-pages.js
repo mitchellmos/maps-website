@@ -11,6 +11,18 @@ function escapeHtml(value) {
     })[character]);
 }
 
+function getWorldCategory(world) {
+    if (/^en\d+$/.test(world.id)) {
+        return 'regular';
+    }
+
+    if (/^enp\d+$/.test(world.id)) {
+        return 'casual';
+    }
+
+    return 'special';
+}
+
 function buildPages(worlds, { rootDir = path.resolve(__dirname, '..') } = {}) {
     const templatesDir = path.join(rootDir, 'templates');
     const headerTemplate = fs.readFileSync(path.join(templatesDir, 'header.html'), 'utf8');
@@ -35,10 +47,18 @@ function buildPages(worlds, { rootDir = path.resolve(__dirname, '..') } = {}) {
 </body>
 </html>`;
 
-    const navigationButtons = worlds.map(world =>
-        `<a href="${world.id}.html" class="world-btn">${escapeHtml(world.name)}</a>`
-    ).join('\n            ');
-    const navigation = navTemplate.replace('{{WORLD_BUTTONS}}', navigationButtons);
+    const buildNavigation = (currentWorld) => {
+        const defaultCategory = currentWorld ? getWorldCategory(currentWorld) : 'regular';
+        const navigationButtons = worlds.map(world => {
+            const category = getWorldCategory(world);
+            const currentPage = currentWorld && world.id === currentWorld.id;
+            return `<a href="${world.id}.html" class="world-btn${currentPage ? ' is-current' : ''}" data-world-category="${category}"${currentPage ? ' aria-current="page"' : ''}>${escapeHtml(world.name)}</a>`;
+        }).join('\n            ');
+
+        return navTemplate
+            .replace('{{DEFAULT_CATEGORY}}', defaultCategory)
+            .replace('{{WORLD_BUTTONS}}', navigationButtons);
+    };
 
     const indexContent = `<main>
     <div class="container">
@@ -53,7 +73,7 @@ function buildPages(worlds, { rootDir = path.resolve(__dirname, '..') } = {}) {
     const indexHtml = baseTemplate
         .replace('{{TITLE}}', 'TribalWars Maps - Daily Map Updates')
         .replace('{{HEADER}}', headerTemplate)
-        .replace('{{NAVIGATION}}', navigation)
+        .replace('{{NAVIGATION}}', buildNavigation())
         .replace('{{CONTENT}}', indexContent)
         .replace('{{FOOTER}}', footerTemplate)
         .replace('{{SCRIPTS}}', '');
@@ -76,7 +96,7 @@ function buildPages(worlds, { rootDir = path.resolve(__dirname, '..') } = {}) {
         const html = baseTemplate
             .replace('{{TITLE}}', `${escapeHtml(world.name)} Maps - TribalWars Maps`)
             .replace('{{HEADER}}', headerTemplate)
-            .replace('{{NAVIGATION}}', navigation)
+            .replace('{{NAVIGATION}}', buildNavigation(world))
             .replace('{{CONTENT}}', worldContent)
             .replace('{{FOOTER}}', footerTemplate)
             .replace('{{SCRIPTS}}', scripts);
@@ -90,4 +110,4 @@ function buildPages(worlds, { rootDir = path.resolve(__dirname, '..') } = {}) {
     );
 }
 
-module.exports = { buildPages, escapeHtml };
+module.exports = { buildPages, escapeHtml, getWorldCategory };

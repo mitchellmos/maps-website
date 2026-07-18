@@ -17,20 +17,45 @@
 
     <nav class="world-nav">
     <div class="container">
-        <h2>Select World</h2>
+        <div class="world-category-picker">
+            <label for="world-category">World type</label>
+            <select id="world-category" data-default-category="special">
+                <option value="regular">Regular worlds</option>
+                <option value="casual">Casual worlds</option>
+                <option value="special">Special worlds</option>
+            </select>
+        </div>
         <div class="world-buttons">
-            <a href="en153.html" class="world-btn">World 153</a>
-            <a href="en154.html" class="world-btn">World 154</a>
-            <a href="en155.html" class="world-btn">World 155</a>
-            <a href="en156.html" class="world-btn">World 156</a>
-            <a href="enc1.html" class="world-btn">Classic</a>
-            <a href="enc2.html" class="world-btn">High Performance</a>
-            <a href="enp17.html" class="world-btn">Casual 17</a>
-            <a href="enp18.html" class="world-btn">Casual 18</a>
-            <a href="enp19.html" class="world-btn">Casual 19</a>
+            <a href="en153.html" class="world-btn" data-world-category="regular">World 153</a>
+            <a href="en154.html" class="world-btn" data-world-category="regular">World 154</a>
+            <a href="en155.html" class="world-btn" data-world-category="regular">World 155</a>
+            <a href="en156.html" class="world-btn" data-world-category="regular">World 156</a>
+            <a href="enc1.html" class="world-btn is-current" data-world-category="special" aria-current="page">Classic</a>
+            <a href="enc2.html" class="world-btn" data-world-category="special">High Performance</a>
+            <a href="enp17.html" class="world-btn" data-world-category="casual">Casual 17</a>
+            <a href="enp18.html" class="world-btn" data-world-category="casual">Casual 18</a>
+            <a href="enp19.html" class="world-btn" data-world-category="casual">Casual 19</a>
         </div>
     </div>
 </nav>
+<script>
+    (() => {
+        const categoryPicker = document.querySelector('#world-category');
+        const worldButtons = document.querySelectorAll('[data-world-category]');
+
+        if (!categoryPicker || worldButtons.length === 0) return;
+
+        function showCategory(category) {
+            worldButtons.forEach(button => {
+                button.hidden = button.dataset.worldCategory !== category;
+            });
+        }
+
+        categoryPicker.value = categoryPicker.dataset.defaultCategory || 'regular';
+        showCategory(categoryPicker.value);
+        categoryPicker.addEventListener('change', event => showCategory(event.target.value));
+    })();
+</script>
 
     <main>
     <div class="container">
@@ -43,7 +68,7 @@
 </main>
     <footer>
     <div class="container">
-        <p>&copy; 2025 SuperdogMaps. Tribal Wars&trade; is a trademark of InnoGames GmbH.</p>
+        <p>&copy; 2026 SuperdogMaps. Tribal Wars&trade; is a trademark of InnoGames GmbH.</p>
     </div>
 </footer>
 

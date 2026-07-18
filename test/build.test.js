@@ -5,6 +5,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { runBuild } = require('../scripts/build.js');
+const { getWorldCategory } = require('../scripts/build-pages.js');
 
 function createFixture() {
     const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'maps-website-test-'));
@@ -13,7 +14,7 @@ function createFixture() {
     fs.writeFileSync(path.join(rootDir, 'templates', 'header.html'), '<header>Header</header>');
     fs.writeFileSync(
         path.join(rootDir, 'templates', 'navigation.html'),
-        '<nav>{{WORLD_BUTTONS}}</nav>'
+        '<nav><select data-default-category="{{DEFAULT_CATEGORY}}"></select>{{WORLD_BUTTONS}}</nav>'
     );
     fs.writeFileSync(path.join(rootDir, 'templates', 'footer.html'), '<footer>Footer</footer>');
     fs.writeFileSync(path.join(rootDir, 'enold.html'), 'old page');
@@ -98,4 +99,35 @@ test('does not delete retired assets when active output generation fails', async
     assert.equal(fs.existsSync(path.join(rootDir, 'enold.html')), true);
     assert.equal(fs.existsSync(path.join(rootDir, 'maps', 'enold.json')), true);
     assert.equal(fs.existsSync(path.join(rootDir, 'maps', 'enold', 'barbarians.png')), true);
+});
+
+test('groups world IDs into regular, casual, and special categories', () => {
+    assert.equal(getWorldCategory({ id: 'en156' }), 'regular');
+    assert.equal(getWorldCategory({ id: 'enp19' }), 'casual');
+    assert.equal(getWorldCategory({ id: 'enc1' }), 'special');
+});
+
+test('generates category-aware navigation with sensible page defaults', async t => {
+    const rootDir = createFixture();
+    t.after(() => fs.rmSync(rootDir, { recursive: true, force: true }));
+
+    await runBuild({
+        rootDir,
+        worldsLoader: async () => [
+            { ...activeWorld(), id: 'en156', name: 'World 156' },
+            { ...activeWorld(), id: 'enp19', name: 'Casual 19' },
+            activeWorld()
+        ]
+    });
+
+    const index = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+    const casualPage = fs.readFileSync(path.join(rootDir, 'enp19.html'), 'utf8');
+    const specialPage = fs.readFileSync(path.join(rootDir, 'enc1.html'), 'utf8');
+
+    assert.match(index, /data-default-category="regular"/);
+    assert.match(casualPage, /data-default-category="casual"/);
+    assert.match(specialPage, /data-default-category="special"/);
+    assert.match(index, /data-world-category="regular">World 156/);
+    assert.match(index, /data-world-category="casual">Casual 19/);
+    assert.match(index, /data-world-category="special"[^>]*>Classic &amp; Fast/);
 });

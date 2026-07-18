@@ -1,8 +1,33 @@
 <nav class="world-nav">
     <div class="container">
-        <h2>Select World</h2>
+        <div class="world-category-picker">
+            <label for="world-category">World type</label>
+            <select id="world-category" data-default-category="{{DEFAULT_CATEGORY}}">
+                <option value="regular">Regular worlds</option>
+                <option value="casual">Casual worlds</option>
+                <option value="special">Special worlds</option>
+            </select>
+        </div>
         <div class="world-buttons">
             {{WORLD_BUTTONS}}
         </div>
     </div>
 </nav>
+<script>
+    (() => {
+        const categoryPicker = document.querySelector('#world-category');
+        const worldButtons = document.querySelectorAll('[data-world-category]');
+
+        if (!categoryPicker || worldButtons.length === 0) return;
+
+        function showCategory(category) {
+            worldButtons.forEach(button => {
+                button.hidden = button.dataset.worldCategory !== category;
+            });
+        }
+
+        categoryPicker.value = categoryPicker.dataset.defaultCategory || 'regular';
+        showCategory(categoryPicker.value);
+        categoryPicker.addEventListener('change', event => showCategory(event.target.value));
+    })();
+</script>
