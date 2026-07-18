@@ -11,13 +11,14 @@ A simple static website to display daily updated TribalWars map PNG files for mu
 - **Automatic Timestamps**: Shows when each map was last updated
 - **Mobile-Friendly**: Works perfectly on all devices
 - **Build-Time Generation**: Consistent templating system for all pages
+- **Shared World Configuration**: Active English worlds are loaded from the central configuration repository
 
 ## File Structure
 
 ```
 maps-website/
 ├── index.html              # Homepage with world selection
-├── worldXXX.html           # Individual world maps pages
+├── enXXX.html              # Generated world map pages (also enc*/enp*)
 ├── styles.css              # CSS styling
 ├── script.js               # JavaScript functionality
 ├── templates/              # HTML templates
@@ -25,14 +26,14 @@ maps-website/
 │   ├── navigation.html     # Navigation template
 │   └── footer.html         # Footer template
 ├── scripts/                # Build/management tools
-│   ├── map-config.js       # Map types and world configuration
-│   ├── build-pages.js      # Page generation script
+│   ├── map-config.js       # Standard map type configuration
+│   ├── world-config.js     # External world loader and validation
+│   ├── build.js            # Complete build orchestration
+│   ├── build-pages.js      # Page generator
 │   ├── generate-map-list.js # Map list generator script
-│   ├── add-world.js        # Add new world script
-│   └── remove-world.js     # Remove world script
 ├── maps/                   # Maps directory
-│   ├── worldXXX/          # World-specific PNG files
-│   ├── worldXXX.json      # World-specific map metadata
+│   ├── <world-id>/        # World-specific PNG files
+│   ├── <world-id>.json    # World-specific map metadata
 │   └── worlds-summary.json # Summary of all worlds
 ├── package.json            # Project configuration
 ├── .gitignore             # Git ignore rules
@@ -60,39 +61,31 @@ maps-website/
 
 ## Development
 
-### Adding a New World
+### World Configuration
+
+The active world list is owned by the shared configuration file:
+
+[tribalwars-config/worlds.json](https://raw.githubusercontent.com/mitchellmos/tribalwars-config/main/worlds.json)
+
+This repository currently publishes entries whose `market` is `en`. Add, rename, reorder, or retire worlds in the shared configuration repository rather than editing this repository's scripts.
+
+The build requires network access and Node.js 18 or newer. It validates schema version 1 before changing any generated files. If fetching or validation fails, the build stops and does not remove existing world assets.
+
+When a previously managed world disappears from the shared list, a successful build removes its generated HTML page, map JSON, and complete `maps/<world-id>/` PNG directory. Those removals are committed like the other generated output.
+
+### Build
 
 ```bash
-# Add a new world (replace XXX with world number)
-node scripts/add-world.js XXX
-
-# Add PNG files to maps/worldXXX/
-# Generate map list
-node scripts/generate-map-list.js
-
-# Rebuild pages
-node scripts/build-pages.js
-```
-
-### Removing a World
-
-```bash
-# Remove a world (replace XXX with world number)
-node scripts/remove-world.js XXX
+npm install
+npm test
+npm run build
 ```
 
 ### Updating Maps
 
-1. Add new PNG files to the appropriate `maps/worldXXX/` directory
-2. Run `node scripts/generate-map-list.js` to update JSON metadata
-3. Maps will automatically appear on the website
-
-### Building Pages
-
-```bash
-# Generate all HTML pages from templates
-node scripts/build-pages.js
-```
+1. Add new PNG files to the appropriate `maps/<world-id>/` directory.
+2. Run `npm run build` to refresh the active worlds, pages, map metadata, and summary.
+3. Run `npm start` and open `http://localhost:8000` to verify the site locally.
 
 ## Map Types
 

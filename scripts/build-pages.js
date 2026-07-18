@@ -1,18 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 
-// Load world configuration
-const mapConfig = require('./map-config.js');
-const WORLDS = mapConfig.WORLDS;
-const WORLD_MAPPING = mapConfig.WORLD_MAPPING;
+function escapeHtml(value) {
+    return value.replace(/[&<>'"]/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    })[character]);
+}
 
-// Read template files
-const headerTemplate = fs.readFileSync('templates/header.html', 'utf8');
-const navTemplate = fs.readFileSync('templates/navigation.html', 'utf8');
-const footerTemplate = fs.readFileSync('templates/footer.html', 'utf8');
+function getWorldCategory(world) {
+    if (/^en\d+$/.test(world.id)) {
+        return 'regular';
+    }
 
-// Base HTML template
-const baseTemplate = `<!DOCTYPE html>
+    if (/^enp\d+$/.test(world.id)) {
+        return 'casual';
+    }
+
+    return 'special';
+}
+
+function buildPages(worlds, { rootDir = path.resolve(__dirname, '..') } = {}) {
+    const templatesDir = path.join(rootDir, 'templates');
+    const headerTemplate = fs.readFileSync(path.join(templatesDir, 'header.html'), 'utf8');
+    const navTemplate = fs.readFileSync(path.join(templatesDir, 'navigation.html'), 'utf8');
+    const footerTemplate = fs.readFileSync(path.join(templatesDir, 'footer.html'), 'utf8');
+
+    const baseTemplate = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,15 +47,19 @@ const baseTemplate = `<!DOCTYPE html>
 </body>
 </html>`;
 
-// Generate navigation buttons dynamically
-function generateNavigationButtons() {
-    return WORLDS.map(world => 
-        `<a href="${world}.html" class="world-btn">${WORLD_MAPPING[world]}</a>`
-    ).join('\n            ');
-}
+    const buildNavigation = (currentWorld) => {
+        const defaultCategory = currentWorld ? getWorldCategory(currentWorld) : 'regular';
+        const navigationButtons = worlds.map(world => {
+            const category = getWorldCategory(world);
+            const currentPage = currentWorld && world.id === currentWorld.id;
+            return `<a href="${world.id}.html" class="world-btn${currentPage ? ' is-current' : ''}" data-world-category="${category}"${currentPage ? ' aria-current="page"' : ''}>${escapeHtml(world.name)}</a>`;
+        }).join('\n            ');
 
-// Build index page
-function buildIndexPage() {
+        return navTemplate
+            .replace('{{DEFAULT_CATEGORY}}', defaultCategory)
+            .replace('{{WORLD_BUTTONS}}', navigationButtons);
+    };
+
     const indexContent = `<main>
     <div class="container">
         <div class="welcome-section">
@@ -48,22 +69,20 @@ function buildIndexPage() {
         </div>
     </div>
 </main>`;
-    
-    let html = baseTemplate
+
+    const indexHtml = baseTemplate
         .replace('{{TITLE}}', 'TribalWars Maps - Daily Map Updates')
         .replace('{{HEADER}}', headerTemplate)
-        .replace('{{NAVIGATION}}', navTemplate.replace('{{WORLD_BUTTONS}}', generateNavigationButtons()))
+        .replace('{{NAVIGATION}}', buildNavigation())
         .replace('{{CONTENT}}', indexContent)
         .replace('{{FOOTER}}', footerTemplate)
         .replace('{{SCRIPTS}}', '');
 
-    fs.writeFileSync('index.html', html);
+    fs.writeFileSync(path.join(rootDir, 'index.html'), indexHtml);
     console.log('Generated: index.html');
-}
 
-// Build world pages
-function buildWorldPages() {
-    const worldContent = `<main>
+    for (const world of worlds) {
+        const worldContent = `<main>
     <div class="container">
         <div class="map-grid" id="mapContainer">
             <div class="loading">
@@ -71,29 +90,24 @@ function buildWorldPages() {
             </div>
         </div>
     </div>
-</main>
-<script src="script.js"></script>`;
-    
-    WORLDS.forEach(world => {
-        let html = baseTemplate
-            .replace('{{TITLE}}', `${WORLD_MAPPING[world]} Maps - TribalWars Maps`)
+</main>`;
+        const scripts = `<script>window.currentWorld = ${JSON.stringify(world.id)};</script>
+    <script src="script.js"></script>`;
+        const html = baseTemplate
+            .replace('{{TITLE}}', `${escapeHtml(world.name)} Maps - TribalWars Maps`)
             .replace('{{HEADER}}', headerTemplate)
-            .replace('{{NAVIGATION}}', navTemplate.replace('{{WORLD_BUTTONS}}', generateNavigationButtons()))
+            .replace('{{NAVIGATION}}', buildNavigation(world))
             .replace('{{CONTENT}}', worldContent)
             .replace('{{FOOTER}}', footerTemplate)
-            .replace('{{SCRIPTS}}', '');
+            .replace('{{SCRIPTS}}', scripts);
 
-        fs.writeFileSync(`${world}.html`, html);
-        console.log(`Generated: ${world}.html`);
-    });
+        fs.writeFileSync(path.join(rootDir, `${world.id}.html`), html);
+        console.log(`Generated: ${world.id}.html`);
+    }
+
+    console.log(
+        `All pages generated successfully! Built ${worlds.length + 1} pages for ${worlds.length} worlds.`
+    );
 }
 
-// Main build function
-function build() {
-    console.log('Building pages...');
-    buildIndexPage();
-    buildWorldPages();
-    console.log(`All pages generated successfully! Built ${WORLDS.length + 1} pages for ${WORLDS.length} worlds.`);
-}
-
-build();
+module.exports = { buildPages, escapeHtml, getWorldCategory };

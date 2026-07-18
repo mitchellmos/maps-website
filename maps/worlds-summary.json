@@ -1,29 +1,51 @@
 {
-  "totalWorlds": 7,
+  "totalWorlds": 9,
   "worlds": {
-    "en148": {
-      "mapCount": 14
-    },
-    "en149": {
-      "mapCount": 14
-    },
-    "en150": {
-      "mapCount": 14
-    },
-    "en151": {
-      "mapCount": 14
-    },
-    "en152": {
-      "mapCount": 14
-    },
     "en153": {
-      "mapCount": 0,
+      "name": "World 153",
+      "mapCount": 14,
       "lastUpdated": null
     },
     "en154": {
-      "mapCount": 0,
+      "name": "World 154",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "en155": {
+      "name": "World 155",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "en156": {
+      "name": "World 156",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "enc1": {
+      "name": "Classic",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "enc2": {
+      "name": "High Performance",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "enp17": {
+      "name": "Casual 17",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "enp18": {
+      "name": "Casual 18",
+      "mapCount": 14,
+      "lastUpdated": null
+    },
+    "enp19": {
+      "name": "Casual 19",
+      "mapCount": 14,
       "lastUpdated": null
     }
   },
-  "lastUpdated": "2026-03-01T21:22:43.940Z"
+  "lastUpdated": "2026-07-18T13:05:17.622Z"
 }

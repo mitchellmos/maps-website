@@ -1,8 +1,3 @@
-// Get current world from the page
-function getCurrentWorld() {
-    return window.currentWorld || '144';
-}
-
 // Get the maps container element
 function getMapsContainer() {
     return document.getElementById('mapContainer');
@@ -10,22 +5,20 @@ function getMapsContainer() {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
-    // Only load maps if we're on a world page
     if (window.currentWorld) {
-        loadMaps();
+        loadMaps(window.currentWorld);
     }
 });
 
 // Load and display maps for the current world
-async function loadMaps(worldId = null) {
+async function loadMaps(worldId) {
     try {
         showLoading();
         
-        const currentWorld = worldId || getCurrentWorld();
-        const maps = await getMapsList(currentWorld);
+        const maps = await getMapsList(worldId);
         
         if (maps.length === 0) {
-            showNoMaps(currentWorld);
+            showNoMaps(worldId);
             return;
         }
         
@@ -152,27 +145,5 @@ document.addEventListener('click', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeModal();
-    }
-});
-
-// Set current world based on page
-document.addEventListener('DOMContentLoaded', function() {
-    const path = window.location.pathname;
-    const filename = path.split('/').pop();
-    
-    // Handle both /en146.html and /en146 or /world146 URLs
-    if ((filename.endsWith('.html') && filename !== 'index.html') || 
-        (filename.startsWith('en') && /^en\d+$/.test(filename)) ||
-        (filename.startsWith('world') && /^world\d+$/.test(filename))) {
-        
-        let worldId = filename.replace('.html', '');
-        
-        // Convert world146 to en146 if needed
-        if (worldId.startsWith('world')) {
-            worldId = worldId.replace('world', 'en');
-        }
-        
-        window.currentWorld = worldId;
-        loadMaps();
     }
 });
