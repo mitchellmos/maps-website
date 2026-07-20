@@ -6,6 +6,7 @@ const test = require('node:test');
 
 const { runBuild } = require('../scripts/build.js');
 const { getWorldCategory } = require('../scripts/build-pages.js');
+const { MAP_TYPES } = require('../scripts/map-config.js');
 
 function createFixture() {
     const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'maps-website-test-'));
@@ -105,6 +106,19 @@ test('groups world IDs into regular, casual, and special categories', () => {
     assert.equal(getWorldCategory({ id: 'en156' }), 'regular');
     assert.equal(getWorldCategory({ id: 'enp19' }), 'casual');
     assert.equal(getWorldCategory({ id: 'enc1' }), 'special');
+});
+
+test('places loss maps immediately after their corresponding conquer maps', () => {
+    const mapTypeIds = MAP_TYPES.map(mapType => mapType.id);
+
+    assert.equal(
+        mapTypeIds.indexOf('topLossTribes'),
+        mapTypeIds.indexOf('topConqTribes') + 1
+    );
+    assert.equal(
+        mapTypeIds.indexOf('topLossPlayers'),
+        mapTypeIds.indexOf('topConqPlayers') + 1
+    );
 });
 
 test('generates category-aware navigation with sensible page defaults', async t => {
