@@ -1,11 +1,6 @@
 {
-  "totalWorlds": 9,
+  "totalWorlds": 10,
   "worlds": {
-    "en153": {
-      "name": "World 153",
-      "mapCount": 16,
-      "lastUpdated": null
-    },
     "en154": {
       "name": "World 154",
       "mapCount": 16,
@@ -21,6 +16,11 @@
       "mapCount": 16,
       "lastUpdated": null
     },
+    "en157": {
+      "name": "World 157",
+      "mapCount": 16,
+      "lastUpdated": null
+    },
     "enc1": {
       "name": "Classic",
       "mapCount": 16,
@@ -28,6 +28,11 @@
     },
     "enc2": {
       "name": "High Performance",
+      "mapCount": 16,
+      "lastUpdated": null
+    },
+    "enc5": {
+      "name": "Summer Special",
       "mapCount": 16,
       "lastUpdated": null
     },
@@ -47,5 +52,5 @@
       "lastUpdated": null
     }
   },
-  "lastUpdated": "2026-07-20T11:44:04.625Z"
+  "lastUpdated": "2026-09-20T22:44:24.708Z"
 }
