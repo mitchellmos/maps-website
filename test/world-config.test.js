@@ -98,9 +98,18 @@ test('aborts a world configuration request after the configured timeout', async 
         loadWorlds({
             timeoutMs: 1,
             fetchImpl: async (_url, { signal }) => new Promise((resolve, reject) => {
-                signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+                // Unlike a real request, a bare promise does not keep Node alive.
+                // AbortSignal.timeout uses an unref'd timer, so model pending I/O
+                // with a referenced timer and release it when the request aborts.
+                const pendingRequest = setTimeout(() => {
+                    reject(new Error('Mock request completed without being aborted'));
+                }, 1000);
+                signal.addEventListener('abort', () => {
+                    clearTimeout(pendingRequest);
+                    reject(signal.reason);
+                }, { once: true });
             })
         }),
-        /Unable to fetch world configuration/
+        /Unable to fetch world configuration.*timeout/i
     );
 });
