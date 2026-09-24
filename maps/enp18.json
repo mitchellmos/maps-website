@@ -3,7 +3,7 @@
     "name": "Top Players",
     "filename": "topPlayers.png",
     "url": "maps/enp18/topPlayers.png",
-    "size": 142370,
+    "size": 142956,
     "world": "enp18",
     "type": "topPlayers"
   },
@@ -11,7 +11,7 @@
     "name": "Top Tribes",
     "filename": "topTribes.png",
     "url": "maps/enp18/topTribes.png",
-    "size": 268884,
+    "size": 269302,
     "world": "enp18",
     "type": "topTribes"
   },
@@ -19,7 +19,7 @@
     "name": "Tribe Conquers",
     "filename": "topConqTribes.png",
     "url": "maps/enp18/topConqTribes.png",
-    "size": 635439,
+    "size": 621563,
     "world": "enp18",
     "type": "topConqTribes"
   },
@@ -27,7 +27,7 @@
     "name": "Tribe Losses",
     "filename": "topLossTribes.png",
     "url": "maps/enp18/topLossTribes.png",
-    "size": 459183,
+    "size": 368546,
     "world": "enp18",
     "type": "topLossTribes"
   },
@@ -35,7 +35,7 @@
     "name": "Top OD Tribes",
     "filename": "topODTribes.png",
     "url": "maps/enp18/topODTribes.png",
-    "size": 263235,
+    "size": 262919,
     "world": "enp18",
     "type": "topODTribes"
   },
@@ -43,7 +43,7 @@
     "name": "Top ODA Tribes",
     "filename": "topODATribes.png",
     "url": "maps/enp18/topODATribes.png",
-    "size": 261129,
+    "size": 262049,
     "world": "enp18",
     "type": "topODATribes"
   },
@@ -51,7 +51,7 @@
     "name": "Top ODD Tribes",
     "filename": "topODDTribes.png",
     "url": "maps/enp18/topODDTribes.png",
-    "size": 257661,
+    "size": 259077,
     "world": "enp18",
     "type": "topODDTribes"
   },
@@ -59,7 +59,7 @@
     "name": "Player Conquers",
     "filename": "topConqPlayers.png",
     "url": "maps/enp18/topConqPlayers.png",
-    "size": 156469,
+    "size": 161040,
     "world": "enp18",
     "type": "topConqPlayers"
   },
@@ -67,7 +67,7 @@
     "name": "Player Losses",
     "filename": "topLossPlayers.png",
     "url": "maps/enp18/topLossPlayers.png",
-    "size": 154187,
+    "size": 127978,
     "world": "enp18",
     "type": "topLossPlayers"
   },
@@ -75,7 +75,7 @@
     "name": "Top OD Players",
     "filename": "topODPlayers.png",
     "url": "maps/enp18/topODPlayers.png",
-    "size": 124314,
+    "size": 126317,
     "world": "enp18",
     "type": "topODPlayers"
   },
@@ -83,7 +83,7 @@
     "name": "Top ODA Players",
     "filename": "topODAPlayers.png",
     "url": "maps/enp18/topODAPlayers.png",
-    "size": 128313,
+    "size": 126286,
     "world": "enp18",
     "type": "topODAPlayers"
   },
@@ -91,7 +91,7 @@
     "name": "Top ODD Players",
     "filename": "topODDPlayers.png",
     "url": "maps/enp18/topODDPlayers.png",
-    "size": 116269,
+    "size": 116401,
     "world": "enp18",
     "type": "topODDPlayers"
   },
@@ -99,7 +99,7 @@
     "name": "Top ODS Players",
     "filename": "topODSPlayers.png",
     "url": "maps/enp18/topODSPlayers.png",
-    "size": 132305,
+    "size": 132047,
     "world": "enp18",
     "type": "topODSPlayers"
   },
@@ -107,7 +107,7 @@
     "name": "Barbarians",
     "filename": "barbarians.png",
     "url": "maps/enp18/barbarians.png",
-    "size": 29268,
+    "size": 28345,
     "world": "enp18",
     "type": "barbarians"
   },
@@ -115,7 +115,7 @@
     "name": "Player Dominance",
     "filename": "topDominancePlayers.png",
     "url": "maps/enp18/topDominancePlayers.png",
-    "size": 284457,
+    "size": 285846,
     "world": "enp18",
     "type": "topDominancePlayers"
   },
@@ -123,7 +123,7 @@
     "name": "Tribe Dominance",
     "filename": "topDominanceTribes.png",
     "url": "maps/enp18/topDominanceTribes.png",
-    "size": 334402,
+    "size": 332266,
     "world": "enp18",
     "type": "topDominanceTribes"
   }
