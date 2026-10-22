@@ -1,5 +1,5 @@
 {
-  "totalWorlds": 11,
+  "totalWorlds": 10,
   "worlds": {
     "en154": {
       "name": "World 154",
@@ -41,11 +41,6 @@
       "mapCount": 16,
       "lastUpdated": null
     },
-    "enp17": {
-      "name": "Casual 17",
-      "mapCount": 16,
-      "lastUpdated": null
-    },
     "enp18": {
       "name": "Casual 18",
       "mapCount": 16,
@@ -57,5 +52,5 @@
       "lastUpdated": null
     }
   },
-  "lastUpdated": "2026-10-21T08:31:35.924Z"
+  "lastUpdated": "2026-10-22T08:33:42.024Z"
 }
