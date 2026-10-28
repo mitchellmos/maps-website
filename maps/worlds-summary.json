@@ -1,5 +1,5 @@
 {
-  "totalWorlds": 10,
+  "totalWorlds": 9,
   "worlds": {
     "en154": {
       "name": "World 154",
@@ -31,11 +31,6 @@
       "mapCount": 16,
       "lastUpdated": null
     },
-    "enc2": {
-      "name": "High Performance",
-      "mapCount": 16,
-      "lastUpdated": null
-    },
     "enc5": {
       "name": "Summer Special",
       "mapCount": 16,
@@ -52,5 +47,5 @@
       "lastUpdated": null
     }
   },
-  "lastUpdated": "2026-10-27T08:56:04.759Z"
+  "lastUpdated": "2026-10-28T09:36:10.013Z"
 }
