@@ -23,7 +23,7 @@
     },
     "en159": {
       "name": "World 159",
-      "mapCount": 0,
+      "mapCount": 16,
       "lastUpdated": null
     },
     "enc1": {
@@ -47,5 +47,5 @@
       "lastUpdated": null
     }
   },
-  "lastUpdated": "2026-11-24T13:36:51.942Z"
+  "lastUpdated": "2026-11-25T12:45:57.816Z"
 }
